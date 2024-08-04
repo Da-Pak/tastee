@@ -249,12 +249,6 @@ class _HomeScreenState extends State<ChatterSurvey> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Choice your Taste!'),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.logout),
-            onPressed: _logout,
-          ),
-        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -271,22 +265,26 @@ class _HomeScreenState extends State<ChatterSurvey> {
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: 20),
-                Wrap(
-                  spacing: 10.0,
-                  runSpacing: 10.0,
-                  alignment: WrapAlignment.center,
-                  children: currentAnswerTemplate
-                      .map((answer) => Draggable<String>(
-                            data: answer,
-                            child: AnswerChip(label: answer),
-                            feedback: Material(
+                SizedBox(
+                  width:
+                      MediaQuery.of(context).size.width * 0.8, // 화면 너비의 80%로 설정
+                  child: Wrap(
+                    spacing: 20.0,
+                    runSpacing: 20.0,
+                    alignment: WrapAlignment.start,
+                    children: currentAnswerTemplate
+                        .map((answer) => Draggable<String>(
+                              data: answer,
                               child: AnswerChip(label: answer),
-                              elevation: 4.0,
-                            ),
-                            childWhenDragging:
-                                AnswerChip(label: answer, isGhost: true),
-                          ))
-                      .toList(),
+                              feedback: Material(
+                                child: AnswerChip(label: answer),
+                                elevation: 4.0,
+                              ),
+                              childWhenDragging:
+                                  AnswerChip(label: answer, isGhost: true),
+                            ))
+                        .toList(),
+                  ),
                 ),
                 SizedBox(height: 20),
                 DragTarget<String>(
@@ -372,7 +370,7 @@ class AnswerChip extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(8),
-      margin: EdgeInsets.symmetric(horizontal: 4),
+      // margin: EdgeInsets.symmetric(horizontal: 4),
       decoration: BoxDecoration(
         color: isGhost ? Colors.grey[200] : Color.fromARGB(255, 147, 103, 224),
         borderRadius: BorderRadius.circular(8),
